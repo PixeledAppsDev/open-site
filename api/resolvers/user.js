@@ -308,13 +308,13 @@ const Mutation = {
   },
   /**
    * Signs up user
-   *
+   *@param {string} invitationcode
    * @param {string} fullName
    * @param {string} email
    * @param {string} username
    * @param {string} password
    */
-  signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
+  signup: async (root, { input: { fullName, email, username, password, invitationcode } }, { User }) => {
     // Check if user with given email or username already exists
     const user = await User.findOne().or([{ email }, { username }]);
     if (user) {
@@ -323,7 +323,7 @@ const Mutation = {
     }
 
     // Empty field validation
-    if (!fullName || !email || !username || !password) {
+    if (!fullName || !email || !username || !password || !invitationcode) {
       throw new Error('All fields are required.');
     }
 
@@ -336,7 +336,8 @@ const Mutation = {
     }
 
     // Email validation
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
       throw new Error('Enter a valid email address.');
     }
@@ -367,6 +368,7 @@ const Mutation = {
       email,
       username,
       password,
+      invitationcode,
     }).save();
 
     return {

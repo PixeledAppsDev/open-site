@@ -9,16 +9,20 @@ import schema from './schema';
 import resolvers from './resolvers';
 import { createApolloServer } from './utils/apollo-server';
 
+const dotenv = require('dotenv');
+dotenv.config();
 // Connect to database
-mongoose
-  .connect(process.env.MONGO_URL, {
+mongoose.connect(
+  process.env.MONGO_URL,
+  {
+    useNewUrlParser: true,
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connected'))
-  .catch((err) => console.error(err));
+  },
+  () => console.log('DB connected')
+);
 
 // Initializes application
 const app = express();
