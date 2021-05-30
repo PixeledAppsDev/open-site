@@ -3,6 +3,8 @@ import express from 'express';
 import { createServer } from 'http';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
 import models from './models';
 import schema from './schema';

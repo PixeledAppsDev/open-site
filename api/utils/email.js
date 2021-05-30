@@ -1,4 +1,6 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { MAIL_SERVICE, MAIL_USER, MAIL_PASS } = process.env;
 
@@ -6,7 +8,8 @@ const { MAIL_SERVICE, MAIL_USER, MAIL_PASS } = process.env;
  * Creates transporter object that will help us to send emails
  */
 const transporter = nodemailer.createTransport({
-  service: MAIL_SERVICE,
+  host: MAIL_SERVICE,
+  port: 465,
   auth: {
     user: MAIL_USER,
     pass: MAIL_PASS,
