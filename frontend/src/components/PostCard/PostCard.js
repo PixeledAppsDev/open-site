@@ -169,6 +169,17 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
     setIsOptionOpen(false);
   };
 
+  //function that replaces URLs with clickable links
+  //assumption: URLs are assumed to be prefixed with either of the four https://, http://, ftp://, www.
+  function urlify(text) {
+    var urlRegex = /(((https?:\/\/)|(http?:\/\/)|(ftp?:\/\/)|(www\.))[^\s]+)/g;
+    //var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function (url, b, c) {
+      var url2 = c === 'www.' ? 'http://' + url : url;
+      return '<a href="' + url2 + '" target="_blank">' + url + '</a>';
+    });
+  }
+
   return (
     <>
       <Root>
@@ -197,7 +208,7 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
 
         <Spacing left="sm" bottom="sm" top="xs" right="sm">
           <Title>
-            <H3>{title}</H3>
+            <H3 dangerouslySetInnerHTML={{ __html: urlify(title) }}></H3>
           </Title>
         </Spacing>
 
