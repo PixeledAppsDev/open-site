@@ -67,7 +67,7 @@ export const postLikesPayload = `
  * Creates a post
  */
 export const CREATE_POST = gql`
-  mutation($input: CreatePostInput!) {
+  mutation ($input: CreatePostInput!) {
     createPost(input: $input) {
       id
     }
@@ -135,7 +135,7 @@ export const GET_POST = gql`
  * Deletes a post
  */
 export const DELETE_POST = gql`
-  mutation($input: DeletePostInput!) {
+  mutation ($input: DeletePostInput!) {
     deletePost(input: $input) {
       id
     }

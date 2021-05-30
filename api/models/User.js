@@ -82,6 +82,9 @@ const userSchema = new Schema(
         ref: 'User',
       },
     ],
+    invitationcode: {
+      type: String,
+    },
   },
   {
     timestamps: true,

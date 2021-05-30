@@ -26,6 +26,7 @@ const UserSchema = gql`
     followers: [Follow]
     following: [Follow]
     notifications: [NotificationPayload]
+    invitation_code: String!
     createdAt: String
     updatedAt: String
   }
@@ -57,6 +58,7 @@ const UserSchema = gql`
     username: String!
     fullName: String!
     password: String!
+    invitationcode: String!
   }
 
   input RequestPasswordResetInput {
