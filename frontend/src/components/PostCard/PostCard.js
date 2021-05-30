@@ -127,6 +127,17 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [isOptionOpen, setIsOptionOpen] = useState(false);
 
+  function urls(message) {
+    var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    return message.match(urlRegex)
+  }
+
+  let urltext = title.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+
+  // console.log(urltext);
+  var titleFinalCheck = urls(title);
+  // console.log(titleFinalCheck)
+
   const toggleCreateComment = () => {
     setIsCommentOpen(true);
   };
@@ -197,7 +208,7 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
 
         <Spacing left="sm" bottom="sm" top="xs" right="sm">
           <Title>
-            <H3>{title}</H3>
+            <H3>{urltext} <br /><a href={titleFinalCheck}>{titleFinalCheck}</a></H3>
           </Title>
         </Spacing>
 
