@@ -369,6 +369,36 @@ const Mutation = {
       password,
     }).save();
 
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      secure: false,
+      port: 535,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS 
+      },
+      tls: {
+        rejectUnauthorized: false
+    },
+      connectionTimeout: 5 * 60 * 1000,
+      
+    })
+
+    const options = {
+      from: process.env.MAIL_USER,
+      to: newUser.email,
+      subject: "Welcome to, World Explorer!",
+      html: "<p><h2>Welcome to World Explorer <h1>You are successfully Signedup with World Explorer <h3>Explore the New World!</h3> </p>"
+    };
+
+    transporter.sendMail(options, function(err, info) {
+      if(err) {
+        console.log('ERROR', err.message)
+        return 
+      }
+      console.log("Email Sent: " + info.response)
+    })
+
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
