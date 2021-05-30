@@ -336,7 +336,8 @@ const Mutation = {
     }
 
     // Email validation
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
       throw new Error('Enter a valid email address.');
     }
@@ -368,6 +369,18 @@ const Mutation = {
       username,
       password,
     }).save();
+
+    const welcomeMailContent = `
+      <h2>Hi ${fullName}, welcome to World Explorer!</h2>
+      <p>Begin exploring and connecting with people <a href="${process.env.FRONTEND_URL}">now</a>!</p>
+    `;
+    const mailOptions = {
+      to: email,
+      subject: 'Welcome to World Explorer!',
+      html: welcomeMailContent,
+    };
+
+    await sendEmail(mailOptions);
 
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
