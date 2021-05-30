@@ -127,6 +127,33 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [isOptionOpen, setIsOptionOpen] = useState(false);
 
+  function jsxJoin(array, str) {
+    return array.length > 0
+      ? array.reduce((result, item) => (
+          <React.Fragment>
+            {result}
+            {str}
+            {item}
+          </React.Fragment>
+        ))
+      : null;
+  }
+  const findlink = () => {
+    var parts = title.split(' ');
+    for (let i = 0; i < parts.length; i++) {
+      console.log(i);
+      if (parts[i].indexOf('www') !== -1) {
+        console.log(parts[i]);
+        parts[i] = (
+          <a key={'link' + i} href={parts[i]}>
+            {parts[i]}
+          </a>
+        );
+      }
+    }
+    title = jsxJoin(parts, ' ');
+  };
+  findlink();
   const toggleCreateComment = () => {
     setIsCommentOpen(true);
   };
