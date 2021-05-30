@@ -177,7 +177,7 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
     const URLRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 
     const textWithReplacedURL = text.replace(URLRegex, (URLSubstring) => {
-      const hyperlink = URLSubstring;
+      const hyperlink = URLSubstring.replace(/[,?.!]$/g, '');
 
       if (!hyperlink.match('^https?://')) hyperlink = 'http://' + hyperlink;
       return '<a href="' + hyperlink + '" target="__blank">' + URLSubstring + '</a>';
