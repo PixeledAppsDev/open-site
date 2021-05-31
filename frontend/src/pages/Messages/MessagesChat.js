@@ -30,7 +30,11 @@ const MessagesChat = ({ match, authUser }) => {
     skip: userId === Routes.NEW_ID_VALUE,
   });
 
-  const { subscribeToMore, data: messages, loading: messagesLoading } = useQuery(GET_MESSAGES, {
+  const {
+    subscribeToMore,
+    data: messages,
+    loading: messagesLoading,
+  } = useQuery(GET_MESSAGES, {
     variables: { authUserId: authUser.id, userId },
     skip: userId === Routes.NEW_ID_VALUE,
     fetchPolicy: 'network-only',

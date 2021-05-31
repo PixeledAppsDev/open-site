@@ -139,7 +139,7 @@ export const GET_AUTH_USER = gql`
  * Gets all available users
  */
 export const GET_USERS = gql`
-  query($userId: String!, $skip: Int, $limit: Int) {
+  query ($userId: String!, $skip: Int, $limit: Int) {
     getUsers(userId: $userId, skip: $skip, limit: $limit) {
       count
       users {
@@ -173,7 +173,7 @@ export const GET_USERS = gql`
  * Searches users by username or fullName
  */
 export const SEARCH_USERS = gql`
-  query($searchQuery: String!) {
+  query ($searchQuery: String!) {
     searchUsers(searchQuery: $searchQuery) {
       id
       fullName
@@ -187,7 +187,7 @@ export const SEARCH_USERS = gql`
  * Uploads user photo
  */
 export const UPLOAD_PHOTO = gql`
-  mutation($input: UploadUserPhotoInput!) {
+  mutation ($input: UploadUserPhotoInput!) {
     uploadUserPhoto(input: $input) {
       id
     }
@@ -198,7 +198,7 @@ export const UPLOAD_PHOTO = gql`
  * Sign up user
  */
 export const SIGN_UP = gql`
-  mutation($input: SignUpInput!) {
+  mutation ($input: SignUpInput!) {
     signup(input: $input) {
       token
     }
@@ -209,7 +209,7 @@ export const SIGN_UP = gql`
  * Sign in user
  */
 export const SIGN_IN = gql`
-  mutation($input: SignInInput!) {
+  mutation ($input: SignInInput!) {
     signin(input: $input) {
       token
     }
@@ -220,7 +220,7 @@ export const SIGN_IN = gql`
  * Request reset password
  */
 export const REQUEST_PASSWORD_RESET = gql`
-  mutation($input: RequestPasswordResetInput!) {
+  mutation ($input: RequestPasswordResetInput!) {
     requestPasswordReset(input: $input) {
       message
     }
@@ -231,7 +231,7 @@ export const REQUEST_PASSWORD_RESET = gql`
  * Verify reset password token
  */
 export const VERIFY_RESET_PASSWORD_TOKEN = gql`
-  query($email: String!, $token: String!) {
+  query ($email: String!, $token: String!) {
     verifyResetPasswordToken(email: $email, token: $token) {
       message
     }
@@ -242,7 +242,7 @@ export const VERIFY_RESET_PASSWORD_TOKEN = gql`
  * Reset password
  */
 export const RESET_PASSWORD = gql`
-  mutation($input: ResetPasswordInput!) {
+  mutation ($input: ResetPasswordInput!) {
     resetPassword(input: $input) {
       token
     }
@@ -253,7 +253,7 @@ export const RESET_PASSWORD = gql`
  * People suggestions for auth user
  */
 export const USER_SUGGESTIONS = gql`
-  query($userId: String!) {
+  query ($userId: String!) {
     suggestPeople(userId: $userId) {
       id
       fullName
@@ -267,7 +267,7 @@ export const USER_SUGGESTIONS = gql`
  * Get users with whom authUser had a conversation
  */
 export const GET_CONVERSATIONS = gql`
-  query($authUserId: ID!) {
+  query ($authUserId: ID!) {
     getConversations(authUserId: $authUserId) {
       id
       username
@@ -286,7 +286,7 @@ export const GET_CONVERSATIONS = gql`
  * Checks if user is online in real time
  */
 export const IS_USER_ONLINE_SUBSCRIPTION = gql`
-  subscription($authUserId: ID!, $userId: ID!) {
+  subscription ($authUserId: ID!, $userId: ID!) {
     isUserOnline(authUserId: $authUserId, userId: $userId) {
       userId
       isOnline

@@ -388,7 +388,7 @@ const Mutation = {
     transporter
       .sendMail({
         to: newUser.email,
-        from: 'tanmya2000@gmail.com',
+        from: process.env.MAIL_USER,
         subject: 'Registration successful',
         html: '<h2>Welcome to World Explorer</h2>',
       })
