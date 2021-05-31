@@ -10,6 +10,8 @@ import resolvers from './resolvers';
 import { createApolloServer } from './utils/apollo-server';
 
 // Connect to database
+const dotenv = require('dotenv');
+dotenv.config();
 mongoose
   .connect(process.env.MONGO_URL, {
     useCreateIndex: true,

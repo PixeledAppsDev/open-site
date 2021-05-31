@@ -9,6 +9,8 @@ import { pubSub } from '../utils/apollo-server';
 
 import { IS_USER_ONLINE } from '../constants/Subscriptions';
 
+const nodemailer = require('nodemailer');
+
 const AUTH_TOKEN_EXPIRY = '1y';
 const RESET_PASSWORD_TOKEN_EXPIRY = 3600000;
 
@@ -336,7 +338,8 @@ const Mutation = {
     }
 
     // Email validation
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
       throw new Error('Enter a valid email address.');
     }
@@ -369,6 +372,30 @@ const Mutation = {
       password,
     }).save();
 
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      secure: false,
+      port: 535,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+      connectionTimeout: 5 * 60 * 1000,
+    });
+    transporter
+      .sendMail({
+        to: newUser.email,
+        from: 'tanmya2000@gmail.com',
+        subject: 'Registration successful',
+        html: '<h2>Welcome to World Explorer</h2>',
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
