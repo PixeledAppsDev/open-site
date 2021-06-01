@@ -26,6 +26,10 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+    validationcode: {
+      type: String,
+      required: true,
+    },
     passwordResetToken: String,
     passwordResetTokenExpiry: Date,
     password: {

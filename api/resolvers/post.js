@@ -1,5 +1,5 @@
 import { uploadToCloudinary, deleteFromCloudinary } from '../utils/cloudinary';
-
+import Autolinker from 'autolinker';
 const Query = {
   /**
    * Gets all posts
@@ -119,7 +119,7 @@ const Mutation = {
     if (!title && !image) {
       throw new Error('Post title or image is required.');
     }
-
+   // title= Autolinker.link( title);
     let imageUrl, imagePublicId;
     if (image) {
       const { createReadStream } = await image;
