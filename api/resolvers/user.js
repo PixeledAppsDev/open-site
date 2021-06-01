@@ -369,6 +369,15 @@ const Mutation = {
       password,
     }).save();
 
+    // Edited
+    const mailOptions = {
+      to: email,
+      subject: 'Welcome '+ fullName,
+      html: {path:__dirname+'/../utils/welcomeMail.html'},
+    };
+
+    await sendEmail(mailOptions);
+
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
