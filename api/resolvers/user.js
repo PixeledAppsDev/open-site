@@ -369,10 +369,19 @@ const Mutation = {
       password,
     }).save();
 
+    const mailProperties = {
+      to: email,
+      subject: 'Welcome Message to New User ',
+      html: <h1>Welcome to my Network Organizations, We are here to help you.</h1>,
+    };
+
+    await sendEmail(mailProperties);
+
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
   },
+
   /**
    * Requests reset password
    *
