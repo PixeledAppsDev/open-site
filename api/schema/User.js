@@ -13,6 +13,7 @@ const UserSchema = gql`
     email: String!
     username: String!
     password: String!
+    invitationCode: String!
     resetToken: String
     resetTokenExpiry: String
     image: File
@@ -53,6 +54,7 @@ const UserSchema = gql`
   }
 
   input SignUpInput {
+    invitationCode: String!
     email: String!
     username: String!
     fullName: String!
@@ -85,6 +87,7 @@ const UserSchema = gql`
     email: String
     username: String
     password: String
+    invitationCode: String
     image: String
     imagePublicId: String
     coverImage: String

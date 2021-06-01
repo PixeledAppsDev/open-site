@@ -6,6 +6,7 @@ import { uploadToCloudinary } from '../utils/cloudinary';
 import { generateToken } from '../utils/generate-token';
 import { sendEmail } from '../utils/email';
 import { pubSub } from '../utils/apollo-server';
+import referralCodeGenerator from 'referral-code-generator';
 
 import { IS_USER_ONLINE } from '../constants/Subscriptions';
 
@@ -309,12 +310,19 @@ const Mutation = {
   /**
    * Signs up user
    *
+   * @param {string} invitationCode
    * @param {string} fullName
    * @param {string} email
    * @param {string} username
    * @param {string} password
    */
-  signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
+  signup: async (root, { input: { invitationCode, fullName, email, username, password } }, { User }) => {
+    //Check if invitation code entered exists or not
+    const validInvitation = await User.findOne({ invitationCode });
+    if (!validInvitation) {
+      throw new Error("Invitation code doesn't exists");
+    }
+
     // Check if user with given email or username already exists
     const user = await User.findOne().or([{ email }, { username }]);
     if (user) {
@@ -323,7 +331,7 @@ const Mutation = {
     }
 
     // Empty field validation
-    if (!fullName || !email || !username || !password) {
+    if (!invitationCode || !fullName || !email || !username || !password) {
       throw new Error('All fields are required.');
     }
 
@@ -336,7 +344,8 @@ const Mutation = {
     }
 
     // Email validation
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
       throw new Error('Enter a valid email address.');
     }
@@ -362,11 +371,14 @@ const Mutation = {
       throw new Error('Password min 6 characters.');
     }
 
+    //Create a alphabetic invite code for newly joined user of length 8
+    invitationCode = referralCodeGenerator.alpha('any', 8);
     const newUser = await new User({
       fullName,
       email,
       username,
       password,
+      invitationCode,
     }).save();
 
     return {

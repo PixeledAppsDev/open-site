@@ -32,6 +32,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    invitationCode: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
     image: String,
     imagePublicId: String,
     coverImage: String,

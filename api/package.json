@@ -20,6 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.8",
     "nodemailer": "^6.4.13",
+    "referral-code-generator": "^1.0.8",
     "subscriptions-transport-ws": "^0.9.18",
     "uuid": "^8.3.1"
   },

@@ -58,6 +58,7 @@ const Form = styled.div`
 const SignUp = ({ history, refetch }) => {
   const [error, setError] = useState('');
   const [values, setValues] = useState({
+    invitationCode: '',
     fullName: '',
     username: '',
     email: '',
@@ -71,7 +72,7 @@ const SignUp = ({ history, refetch }) => {
   };
 
   const validate = () => {
-    if (!fullName || !email || !username || !password) {
+    if (!invitationCode || !fullName || !email || !username || !password) {
       return 'All fields are required';
     }
 
@@ -79,7 +80,8 @@ const SignUp = ({ history, refetch }) => {
       return 'Full name no more than 50 characters';
     }
 
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
       return 'Enter a valid email address.';
     }
@@ -109,7 +111,7 @@ const SignUp = ({ history, refetch }) => {
 
     try {
       const response = await signup({
-        variables: { input: { fullName, email, password, username } },
+        variables: { input: { invitationCode, fullName, email, password, username } },
       });
       localStorage.setItem('token', response.data.signup.token);
       await refetch();
@@ -119,7 +121,7 @@ const SignUp = ({ history, refetch }) => {
     }
   };
 
-  const { fullName, email, password, username } = values;
+  const { invitationCode, fullName, email, password, username } = values;
   return (
     <Root maxWidth="lg">
       <Head />
@@ -142,12 +144,22 @@ const SignUp = ({ history, refetch }) => {
         <form onSubmit={(e) => handleSubmit(e, signup)}>
           <InputText
             type="text"
-            name="fullName"
-            values={fullName}
+            name="invitationCode"
+            values={invitationCode}
             onChange={handleChange}
-            placeholder="Full name"
+            placeholder="Invitation Code"
             borderColor="white"
           />
+          <Spacing top="xs" bottom="xs">
+            <InputText
+              type="text"
+              name="fullName"
+              values={fullName}
+              onChange={handleChange}
+              placeholder="Full name"
+              borderColor="white"
+            />
+          </Spacing>
           <Spacing top="xs" bottom="xs">
             <InputText
               type="text"
