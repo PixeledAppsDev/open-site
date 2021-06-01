@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 import { useApolloClient } from '@apollo/client';
+import Linkify from 'react-linkify';
 
 import Comment from 'components/Comment';
 import CreateComment from 'components/CreateComment';
@@ -197,7 +198,9 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
 
         <Spacing left="sm" bottom="sm" top="xs" right="sm">
           <Title>
-            <H3>{title}</H3>
+            <Linkify>
+              <H3>{title}</H3>
+            </Linkify>
           </Title>
         </Spacing>
 
