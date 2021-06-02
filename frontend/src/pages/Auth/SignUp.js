@@ -97,7 +97,7 @@ const SignUp = ({ history, refetch }) => {
       return 'Password min 6 characters';
     }
 
-    if (inviteCode.length != 5) {
+    if (inviteCode.length !== 5) {
       return 'Invalid invite code';
     }
 

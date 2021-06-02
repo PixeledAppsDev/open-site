@@ -40,10 +40,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    referralCode: {
-      type: String,
-      unique: true,
-    },
+    referralCode: String,
     posts: [
       {
         type: Schema.Types.ObjectId,

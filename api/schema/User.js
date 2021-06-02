@@ -20,6 +20,7 @@ const UserSchema = gql`
     coverImage: File
     coverImagePublicId: String
     isOnline: Boolean
+    referralCode: String!
     posts: [PostPayload]
     likes: [Like]
     comments: [Comment]
@@ -57,6 +58,7 @@ const UserSchema = gql`
     username: String!
     fullName: String!
     password: String!
+    inviteCode: String!
   }
 
   input RequestPasswordResetInput {

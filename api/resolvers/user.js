@@ -322,9 +322,10 @@ const Mutation = {
       throw new Error(`User with given ${field} already exists.`);
     }
 
-    //Validating invite code
-    const inviter = await User.findOne({ referrralCode: inviteCode });
-    if (!inviter) throw new Error('Invalid invite code');
+    //Validating invite code, accounting for first user as well
+    const userCount = await User.countDocuments({});
+    const inviter = await User.findOne({ referralCode: inviteCode });
+    if (!inviter && userCount > 0) throw new Error('Invalid invite code');
 
     // Empty field validation
     if (!fullName || !email || !username || !password || !inviteCode) {
@@ -370,8 +371,6 @@ const Mutation = {
     //Generate referral code for new user
     const referralCode = Math.random().toString(36).substring(2, 7);
 
-    console.log('password before save: ', password);
-
     const newUser = await new User({
       fullName,
       email,
@@ -379,8 +378,6 @@ const Mutation = {
       password,
       referralCode,
     }).save();
-
-    console.log('password after save: ', password);
 
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
