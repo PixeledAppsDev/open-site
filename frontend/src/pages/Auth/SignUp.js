@@ -72,7 +72,7 @@ const SignUp = ({ history, refetch }) => {
   };
 
   const validate = () => {
-    if (!fullName || !email || !username || !password ||!validationcode ) {
+    if (!fullName || !email || !username || !password ) {
       return 'All fields are required';
     }
 
@@ -120,7 +120,7 @@ const SignUp = ({ history, refetch }) => {
     }
   };
 
-  const { fullName, email, password, username , validationcode} = values;
+  const { fullName, email, password, username } = values;
   return (
     <Root maxWidth="lg">
       <Head />
@@ -174,16 +174,6 @@ const SignUp = ({ history, refetch }) => {
               values={password}
               onChange={handleChange}
               placeholder="Password"
-              borderColor="white"
-            />
-            </Spacing>
-            <Spacing top="xs" bottom="xs">
-            <InputText
-              type="validationcode"
-              name="validationcode"
-              values={validationcode}
-              onChange={handleChange}
-              placeholder="validationcode"
               borderColor="white"
             />
             </Spacing>
