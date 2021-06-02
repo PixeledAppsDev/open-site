@@ -315,7 +315,7 @@ const Mutation = {
    * @param {string} password
    *
    */
-  signup: async (root, { input: { fullName, email, username, password ,} }, { User }) => {
+  signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
     // Check if user with given email or username already exists
     const user = await User.findOne().or([{ email }, { username }]);
     if (user) {
