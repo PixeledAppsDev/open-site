@@ -138,6 +138,13 @@ const ProfileInfo = ({ user }) => {
         <List>
           <b>{user.following.length} </b> following
         </List>
+        {/*Users can only see their own referral codes*/}
+        {auth.user.id === user.id && (
+          <List>
+            <b>Referral code </b>
+            {user.referralCode}
+          </List>
+        )}
       </Info>
     </Root>
   );

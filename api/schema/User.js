@@ -96,6 +96,7 @@ const UserSchema = gql`
     likes: [Like]
     followers: [Follow]
     following: [Follow]
+    referralCode: String
     notifications: [NotificationPayload]
     newNotifications: [NotificationPayload]
     newConversations: [ConversationsPayload]
