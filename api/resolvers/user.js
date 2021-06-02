@@ -411,7 +411,7 @@ const Mutation = {
       subject: 'Password Reset',
       html: resetLink,
     };
-    console.log(validationcode);
+    
     await sendEmail(mailOptions);
 
     // Return success message
