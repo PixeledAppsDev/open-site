@@ -126,7 +126,20 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
   const client = useApolloClient();
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-
+  
+  const URLreplace=(text)=>{
+    if (!text) return;
+  
+    const URLRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+  
+    const textWithReplacedURL = text.replace(URLRegex, (URLSubstring) => {
+      const hyperlink = URLSubstring.replace(/[,?.!]$/g, '');
+  
+      if (!hyperlink.match('^https?://')) hyperlink = 'http://' + hyperlink;
+      return '<a href="' + hyperlink + '" target="__blank">' + URLSubstring + '</a>';
+    });
+    return textWithReplacedURL;
+  };
   const toggleCreateComment = () => {
     setIsCommentOpen(true);
   };
@@ -134,7 +147,7 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
   const toggleComment = () => {
     setIsCommentOpen(!isCommentOpen);
   };
-
+  
   const closeOption = () => setIsOptionOpen(false);
 
   const openOption = () => setIsOptionOpen(true);
@@ -168,7 +181,7 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
 
     setIsOptionOpen(false);
   };
-
+ 
   return (
     <>
       <Root>
@@ -194,10 +207,10 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
             <DotsIcon />
           </Button>
         </TopRow>
-
+        
         <Spacing left="sm" bottom="sm" top="xs" right="sm">
           <Title>
-            <H3>{title}</H3>
+            <H3 dangerouslySetInnerHTML={{ __html: URLreplace(title) }}></H3>
           </Title>
         </Spacing>
 
