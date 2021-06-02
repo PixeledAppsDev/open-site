@@ -1,5 +1,5 @@
 {
-  "name": "social-network-api",
+  "name": "my-network-api",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
@@ -9,6 +9,7 @@
   "dependencies": {
     "apollo-server": "^2.18.2",
     "apollo-server-express": "^2.18.2",
+    "autolinker": "^3.14.3",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
@@ -19,7 +20,7 @@
     "graphql-tools": "^6.2.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.8",
-    "nodemailer": "^6.4.13",
+    "nodemailer": "^6.6.1",
     "subscriptions-transport-ws": "^0.9.18",
     "uuid": "^8.3.1"
   },
