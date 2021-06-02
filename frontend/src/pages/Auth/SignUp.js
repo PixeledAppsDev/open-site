@@ -62,6 +62,7 @@ const SignUp = ({ history, refetch }) => {
     username: '',
     email: '',
     password: '',
+    validationcode: '',
   });
   const [signup, { loading }] = useMutation(SIGN_UP);
 
@@ -71,7 +72,7 @@ const SignUp = ({ history, refetch }) => {
   };
 
   const validate = () => {
-    if (!fullName || !email || !username || !password) {
+    if (!fullName || !email || !username || !password ||!validationcode ) {
       return 'All fields are required';
     }
 
@@ -109,7 +110,7 @@ const SignUp = ({ history, refetch }) => {
 
     try {
       const response = await signup({
-        variables: { input: { fullName, email, password, username } },
+        variables: { input: { fullName, email, password, username,validationcode } },
       });
       localStorage.setItem('token', response.data.signup.token);
       await refetch();
@@ -119,7 +120,7 @@ const SignUp = ({ history, refetch }) => {
     }
   };
 
-  const { fullName, email, password, username } = values;
+  const { fullName, email, password, username , validationcode} = values;
   return (
     <Root maxWidth="lg">
       <Head />
@@ -175,7 +176,18 @@ const SignUp = ({ history, refetch }) => {
               placeholder="Password"
               borderColor="white"
             />
-          </Spacing>
+            </Spacing>
+            <Spacing top="xs" bottom="xs">
+            <InputText
+              type="validationcode"
+              name="validationcode"
+              values={validationcode}
+              onChange={handleChange}
+              placeholder="validationcode"
+              borderColor="white"
+            />
+            </Spacing>
+           
           {error && (
             <Spacing bottom="sm" top="sm">
               <Error>{error}</Error>
