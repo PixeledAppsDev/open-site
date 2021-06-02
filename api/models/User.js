@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { nanoid } from 'nanoid';
 
 const Schema = mongoose.Schema;
 
@@ -31,6 +32,16 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    invitationCodeGenerated:{
+      type: String,
+      default: ()=> nanoid(10),
+      unique: true,
+      required: true
+    },
+    invitationCodeSubmitted:{
+      type: String,
+      required: true
     },
     image: String,
     imagePublicId: String,

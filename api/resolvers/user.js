@@ -314,7 +314,7 @@ const Mutation = {
    * @param {string} username
    * @param {string} password
    */
-  signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
+  signup: async (root, { input: { fullName, email, username, password, invitationCodeSubmitted } }, { User }) => {
     // Check if user with given email or username already exists
     const user = await User.findOne().or([{ email }, { username }]);
     if (user) {
@@ -323,7 +323,7 @@ const Mutation = {
     }
 
     // Empty field validation
-    if (!fullName || !email || !username || !password) {
+    if (!fullName || !email || !username || !password || !invitationCodeSubmitted) {
       throw new Error('All fields are required.');
     }
 
@@ -362,11 +362,18 @@ const Mutation = {
       throw new Error('Password min 6 characters.');
     }
 
+    // Invitaion Code validation
+    const inviter = await User.findOne({invitationCodeGenerated: invitationCodeSubmitted});
+    if(!inviter) {
+      throw new Error('Invitation code is not valid');
+    }
+
     const newUser = await new User({
       fullName,
       email,
       username,
       password,
+      invitationCodeSubmitted
     }).save();
 
     return {

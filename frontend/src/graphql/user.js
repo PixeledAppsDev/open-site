@@ -9,6 +9,7 @@ const userPayload = `
   username
   email
   fullName
+  invitationCodeSubmitted
   image
   imagePublicId
   coverImage
@@ -23,6 +24,7 @@ export const GET_USER = gql`
   query($username: String, $id: ID) {
     getUser(username: $username, id: $id) {
       ${userPayload}
+      invitationCodeGenerated
       isOnline
       posts {
         id
@@ -146,6 +148,8 @@ export const GET_USERS = gql`
         id
         fullName
         username
+        invitationCodeGenerated
+        invitationCodeSubmitted
         image
         following {
           id

@@ -139,6 +139,21 @@ const ProfileInfo = ({ user }) => {
           <b>{user.following.length} </b> following
         </List>
       </Info>
+      <Info>
+        <List>
+          Your Invitation Code: <b>{user.invitationCodeGenerated} </b> 
+        </List>
+        <List>
+          Invitation Code Applied: {
+            (()=> {
+                if(user.invitationCodeSubmitted){
+                  return (<b>{user.invitationCodeSubmitted}</b>);
+                }
+                return (<b>NA</b>);
+            })()
+            }  
+        </List>
+      </Info>
     </Root>
   );
 };
