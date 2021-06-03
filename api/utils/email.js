@@ -27,9 +27,11 @@ export const sendEmail = ({ to, subject, html }) => {
     return transporter
       .sendMail(options)
       .then((response) => {
+        
         resolve(response.data);
       })
       .catch((error) => {
+       
         reject(error);
       });
   });

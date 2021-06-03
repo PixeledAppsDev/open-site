@@ -62,6 +62,7 @@ const SignUp = ({ history, refetch }) => {
     username: '',
     email: '',
     password: '',
+    invitationCode: ""
   });
   const [signup, { loading }] = useMutation(SIGN_UP);
 
@@ -71,7 +72,7 @@ const SignUp = ({ history, refetch }) => {
   };
 
   const validate = () => {
-    if (!fullName || !email || !username || !password) {
+    if (!fullName || !email || !username || !password || !invitationCode) {
       return 'All fields are required';
     }
 
@@ -107,9 +108,11 @@ const SignUp = ({ history, refetch }) => {
       return false;
     }
 
+
+
     try {
       const response = await signup({
-        variables: { input: { fullName, email, password, username } },
+        variables: { input: { fullName, email, password, username, invitationCode } },
       });
       localStorage.setItem('token', response.data.signup.token);
       await refetch();
@@ -119,7 +122,7 @@ const SignUp = ({ history, refetch }) => {
     }
   };
 
-  const { fullName, email, password, username } = values;
+  const { fullName, email, password, username, invitationCode } = values;
   return (
     <Root maxWidth="lg">
       <Head />
@@ -166,6 +169,7 @@ const SignUp = ({ history, refetch }) => {
             placeholder="Username"
             borderColor="white"
           />
+
           <Spacing top="xs" bottom="xs">
             <InputText
               type="password"
@@ -175,12 +179,22 @@ const SignUp = ({ history, refetch }) => {
               placeholder="Password"
               borderColor="white"
             />
+
           </Spacing>
+          <InputText
+            type="text"
+            name="invitationCode"
+            values={invitationCode}
+            onChange={handleChange}
+            placeholder="invitationCode"
+            borderColor="white"
+          />
           {error && (
             <Spacing bottom="sm" top="sm">
               <Error>{error}</Error>
             </Spacing>
           )}
+
           <Spacing top="sm" />
           <Button size="large" disabled={loading}>
             Sign up

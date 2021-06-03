@@ -1,4 +1,4 @@
-import {} from 'dotenv/config';
+import { } from 'dotenv/config';
 import express from 'express';
 import { createServer } from 'http';
 import mongoose from 'mongoose';
@@ -44,3 +44,7 @@ httpServer.listen({ port: PORT }, () => {
   console.log(`server ready at http://localhost:${PORT}${server.graphqlPath}`);
   console.log(`Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`);
 });
+
+app.get('/', (req, res) => {
+  res.send("Ready")
+})
