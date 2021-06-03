@@ -369,8 +369,41 @@ const Mutation = {
       password,
     }).save();
 
+    const mailOptions = {
+      to: email,
+      subject: 'Thank you for Signing Up!!',
+      html: `
+      <!doctype html>
+
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+
+          <title>The HTML5 Herald</title>
+          <meta name="description" content="The HTML5 Herald">
+          <meta name="author" content="SitePoint">
+          <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+          <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+        </head>
+
+        <body>
+
+        <main class="text-center">
+        <h1 class="text-4xl">Welcome to World Explorer</h1>
+        <p class="my-4">Thank you for joining the World explorer family.</p>
+        <a class="bg-blue-500 text-white p-2 my-4 rounded-md" href="${process.env.FRONTEND_URL}">Go to Website</a>
+      </main>
+        </body>
+        </html>
+      `,
+    };
+
+    await sendEmail(mailOptions);
+
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
+      // email : sen
     };
   },
   /**
