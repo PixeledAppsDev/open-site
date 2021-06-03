@@ -22,5 +22,8 @@ export { NotFoundIcon } from './NotFoundIcon';
 export { EnvelopeIcon } from './EnvelopeIcon';
 export { EnvelopeOpenIcon } from './EnvelopeOpenIcon';
 export { SendIcon } from './SendIcon';
+<<<<<<< HEAD
 export { ShareIcon } from './ShareIcon';
+=======
+>>>>>>> origin
 export { PencilIcon } from './PencilIcon';

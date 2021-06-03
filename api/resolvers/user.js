@@ -12,8 +12,11 @@ import { IS_USER_ONLINE } from '../constants/Subscriptions';
 const AUTH_TOKEN_EXPIRY = '1y';
 const RESET_PASSWORD_TOKEN_EXPIRY = 3600000;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin
 const Query = {
   /**
    * Gets the currently logged in user
@@ -308,7 +311,10 @@ const Mutation = {
       token: generateToken(user, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin
   /**
    * Signs up user
    *
@@ -316,17 +322,24 @@ const Mutation = {
    * @param {string} email
    * @param {string} username
    * @param {string} password
+<<<<<<< HEAD
    * @param {string} invitationCode
    */
 
   signup: async (root, { input: { fullName, email, username, invitationCode, password } }, { User }) => {
     // Check if user with given email or username already exists
     let MyInvitationCode
+=======
+   */
+  signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
+    // Check if user with given email or username already exists
+>>>>>>> origin
     const user = await User.findOne().or([{ email }, { username }]);
     if (user) {
       const field = user.email === email ? 'email' : 'username';
       throw new Error(`User with given ${field} already exists.`);
     }
+<<<<<<< HEAD
     
 
     //Check Valid Invitation Code
@@ -336,6 +349,8 @@ const Mutation = {
     if (!inviteCodeCheck) {
       throw new Error(`Invalid Invatation Code`);
     }
+=======
+>>>>>>> origin
 
     // Empty field validation
     if (!fullName || !email || !username || !password) {
@@ -377,14 +392,18 @@ const Mutation = {
       throw new Error('Password min 6 characters.');
     }
 
+<<<<<<< HEAD
     //generate Random Invitation Code
     MyInvitationCode = Math.random().toString(36).substr(2, 6)
 
+=======
+>>>>>>> origin
     const newUser = await new User({
       fullName,
       email,
       username,
       password,
+<<<<<<< HEAD
       invitationCode,
       MyInvitationCode
     }).save();
@@ -405,6 +424,13 @@ const Mutation = {
     };
 
 
+=======
+    }).save();
+
+    return {
+      token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
+    };
+>>>>>>> origin
   },
   /**
    * Requests reset password

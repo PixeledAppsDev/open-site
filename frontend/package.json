@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "my-network-frontend",
+=======
+  "name": "social-network-frontend",
+>>>>>>> origin
   "version": "1.0.0",
   "private": true,
   "dependencies": {

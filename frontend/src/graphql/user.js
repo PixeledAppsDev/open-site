@@ -9,7 +9,10 @@ const userPayload = `
   username
   email
   fullName
+<<<<<<< HEAD
   MyInvitationCode
+=======
+>>>>>>> origin
   image
   imagePublicId
   coverImage
@@ -147,7 +150,10 @@ export const GET_USERS = gql`
         id
         fullName
         username
+<<<<<<< HEAD
         MyInvitationCode
+=======
+>>>>>>> origin
         image
         following {
           id

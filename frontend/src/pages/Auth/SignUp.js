@@ -62,7 +62,10 @@ const SignUp = ({ history, refetch }) => {
     username: '',
     email: '',
     password: '',
+<<<<<<< HEAD
     invitationCode: ""
+=======
+>>>>>>> origin
   });
   const [signup, { loading }] = useMutation(SIGN_UP);
 
@@ -72,7 +75,11 @@ const SignUp = ({ history, refetch }) => {
   };
 
   const validate = () => {
+<<<<<<< HEAD
     if (!fullName || !email || !username || !password || !invitationCode) {
+=======
+    if (!fullName || !email || !username || !password) {
+>>>>>>> origin
       return 'All fields are required';
     }
 
@@ -108,11 +115,17 @@ const SignUp = ({ history, refetch }) => {
       return false;
     }
 
+<<<<<<< HEAD
 
 
     try {
       const response = await signup({
         variables: { input: { fullName, email, password, username, invitationCode } },
+=======
+    try {
+      const response = await signup({
+        variables: { input: { fullName, email, password, username } },
+>>>>>>> origin
       });
       localStorage.setItem('token', response.data.signup.token);
       await refetch();
@@ -122,7 +135,11 @@ const SignUp = ({ history, refetch }) => {
     }
   };
 
+<<<<<<< HEAD
   const { fullName, email, password, username, invitationCode } = values;
+=======
+  const { fullName, email, password, username } = values;
+>>>>>>> origin
   return (
     <Root maxWidth="lg">
       <Head />
@@ -169,7 +186,10 @@ const SignUp = ({ history, refetch }) => {
             placeholder="Username"
             borderColor="white"
           />
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin
           <Spacing top="xs" bottom="xs">
             <InputText
               type="password"
@@ -179,6 +199,7 @@ const SignUp = ({ history, refetch }) => {
               placeholder="Password"
               borderColor="white"
             />
+<<<<<<< HEAD
 
           </Spacing>
           <InputText
@@ -189,12 +210,18 @@ const SignUp = ({ history, refetch }) => {
             placeholder="invitationCode"
             borderColor="white"
           />
+=======
+          </Spacing>
+>>>>>>> origin
           {error && (
             <Spacing bottom="sm" top="sm">
               <Error>{error}</Error>
             </Spacing>
           )}
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin
           <Spacing top="sm" />
           <Button size="large" disabled={loading}>
             Sign up

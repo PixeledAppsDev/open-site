@@ -26,6 +26,7 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+<<<<<<< HEAD
     invitationCode: {
       type: String,
       lowercase: true,
@@ -38,6 +39,8 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+=======
+>>>>>>> origin
     passwordResetToken: String,
     passwordResetTokenExpiry: Date,
     password: {

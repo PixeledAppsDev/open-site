@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
+<<<<<<< HEAD
 import { NotificationIcon, MenuIcon, EnvelopeOpenIcon, ShareIcon } from 'components/icons';
+=======
+import { NotificationIcon, MenuIcon, EnvelopeOpenIcon } from 'components/icons';
+>>>>>>> origin
 import { Container, Spacing } from 'components/Layout';
 import { A } from 'components/Text';
 import { Button } from 'components/Form';
@@ -111,9 +115,12 @@ const MessageCount = styled.span`
   right: 100px;
 `;
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> origin
 /**
  * Header of the App when user is authenticated
  */
@@ -160,6 +167,7 @@ const Header = ({ location, toggleSideBar }) => {
     }
   };
 
+<<<<<<< HEAD
   const [state, setState] = useState(
     { hover: false }
   )
@@ -188,6 +196,8 @@ const Header = ({ location, toggleSideBar }) => {
   }
 
 
+=======
+>>>>>>> origin
   return (
     <Root>
       <Wrapper>
@@ -204,6 +214,7 @@ const Header = ({ location, toggleSideBar }) => {
         </LeftSide>
 
         <RightSide>
+<<<<<<< HEAD
 
           <Spacing right="md">
             <div>
@@ -226,6 +237,15 @@ const Header = ({ location, toggleSideBar }) => {
               )}
               <EnvelopeOpenIcon />
 
+=======
+          <Spacing right="md">
+            <Button ghost onClick={() => handleIconClick('MESSAGE')}>
+              {auth.user.newConversations.length > 0 && (
+                <MessageCount>{auth.user.newConversations.length}</MessageCount>
+              )}
+
+              <EnvelopeOpenIcon />
+>>>>>>> origin
             </Button>
           </Spacing>
 

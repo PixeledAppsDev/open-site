@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "my-network-api",
+=======
+  "name": "social-network-api",
+>>>>>>> origin
   "version": "1.0.0",
   "private": true,
   "main": "index.js",

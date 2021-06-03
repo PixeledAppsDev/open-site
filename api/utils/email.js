@@ -3,14 +3,15 @@ import nodemailer from 'nodemailer';
 const { MAIL_SERVICE, MAIL_USER, MAIL_PASS } = process.env;
 
 /**
- * Creates transporter object that will help us to send emails 
+=======
+ * Creates transporter object that will help us to send emails
+>>>>>>> origin
  */
 const transporter = nodemailer.createTransport({
   service: MAIL_SERVICE,
   auth: {
     user: MAIL_USER,
     pass: MAIL_PASS,
-
   },
 });
 
@@ -28,11 +29,16 @@ export const sendEmail = ({ to, subject, html }) => {
     return transporter
       .sendMail(options)
       .then((response) => {
-        
+
+
         resolve(response.data);
       })
       .catch((error) => {
-       
+
+
+        resolve(response.data);
+      })
+      .catch((error) => {
         reject(error);
       });
   });

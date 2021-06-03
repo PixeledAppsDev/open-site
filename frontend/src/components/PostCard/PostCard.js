@@ -27,10 +27,13 @@ import * as Routes from 'routes';
 
 import { timeAgo } from 'utils/date';
 
+<<<<<<< HEAD
 import Linkify from 'react-linkify';
 
 
 
+=======
+>>>>>>> origin
 const Root = styled.div`
   width: 100%;
   border-radius: ${(p) => p.theme.radius.sm};
@@ -168,7 +171,11 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
           },
         ],
       });
+<<<<<<< HEAD
     } catch (err) { }
+=======
+    } catch (err) {}
+>>>>>>> origin
 
     setIsOptionOpen(false);
   };
@@ -200,11 +207,16 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
         </TopRow>
 
         <Spacing left="sm" bottom="sm" top="xs" right="sm">
+<<<<<<< HEAD
 
           <Title>
             <Linkify>
               <H3>{title}</H3>
             </Linkify>
+=======
+          <Title>
+            <H3>{title}</H3>
+>>>>>>> origin
           </Title>
         </Spacing>
 
