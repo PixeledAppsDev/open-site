@@ -6,18 +6,11 @@ const { MAIL_SERVICE, MAIL_USER, MAIL_PASS } = process.env;
  * Creates transporter object that will help us to send emails
  */
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  service: MAIL_SERVICE,
   auth: {
-    user: 'dotlify@gmail.com',
-    pass: "shreeDOT9960@#"
-  }
-  // service: MAIL_SERVICE,
-  // auth: {
-  //   user: MAIL_USER,
-  //   pass: MAIL_PASS,
-  // },
+    user: MAIL_USER,
+    pass: MAIL_PASS,
+  },
 });
 
 /**
@@ -29,16 +22,16 @@ const transporter = nodemailer.createTransport({
  */
 export const sendEmail = ({ to, subject, html }) => {
   return new Promise((resolve, reject) => {
-    const options = { from: "dotlify@gmail.com", to, subject, html };
+    const options = { from: MAIL_USER, to, subject, html };
 
     return transporter
       .sendMail(options)
       .then((response) => {
-        console.log("mail send");
+        
         resolve(response.data);
       })
       .catch((error) => {
-        console.log("mail fail");
+       
         reject(error);
       });
   });

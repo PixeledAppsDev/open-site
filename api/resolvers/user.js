@@ -331,7 +331,7 @@ const Mutation = {
 
     //Check Valid Invitation Code
     const inviteCodeCheck = await (User.findOne({ MyInvitationCode: invitationCode }))
-    
+    // console.log(inviteCodeCheck);
 
     if (!inviteCodeCheck) {
       throw new Error(`Invalid Invatation Code`);
@@ -425,7 +425,7 @@ const Mutation = {
       { _id: user.id },
       { passwordResetToken: token, passwordResetTokenExpiry: tokenExpiry },
       { new: true }
-    ); n
+    );
 
     // Email user reset link
     const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${email}&token=${token}`;
