@@ -16,6 +16,7 @@ import { GET_POST, GET_POSTS, GET_FOLLOWED_POSTS } from 'graphql/post';
 import { useNotifications } from '../hooks/useNotifications';
 
 import { useStore } from 'store';
+import renderContent from '../utils/UrlRegex';
 
 import * as Routes from 'routes';
 
@@ -114,7 +115,7 @@ const Comment = ({ comment, postId, postAuthor }) => {
           </A>
         </Spacing>
 
-        {comment.comment}
+        {renderContent(comment.comment)}
       </CommentSection>
     </Root>
   );

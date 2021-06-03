@@ -24,7 +24,7 @@ import { HOME_PAGE_POSTS_LIMIT, PROFILE_PAGE_POSTS_LIMIT } from 'constants/DataL
 import { useStore } from 'store';
 
 import * as Routes from 'routes';
-
+import renderContent from '../../utils/UrlRegex';
 import { timeAgo } from 'utils/date';
 
 const Root = styled.div`
@@ -197,7 +197,7 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
 
         <Spacing left="sm" bottom="sm" top="xs" right="sm">
           <Title>
-            <H3>{title}</H3>
+            <H3>{renderContent(title)}</H3>
           </Title>
         </Spacing>
 
