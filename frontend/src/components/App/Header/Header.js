@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
-import { NotificationIcon, MenuIcon, EnvelopeOpenIcon } from 'components/icons';
+import { NotificationIcon, MenuIcon, EnvelopeOpenIcon, ShareIcon } from 'components/icons';
 import { Container, Spacing } from 'components/Layout';
 import { A } from 'components/Text';
 import { Button } from 'components/Form';
@@ -111,6 +111,9 @@ const MessageCount = styled.span`
   right: 100px;
 `;
 
+
+
+
 /**
  * Header of the App when user is authenticated
  */
@@ -157,6 +160,34 @@ const Header = ({ location, toggleSideBar }) => {
     }
   };
 
+  const [state, setState] = useState(
+    { hover: false }
+  )
+  function handleMouseIn() {
+    setState({ hover: true })
+  }
+
+  function handleMouseOut() {
+    setState({ hover: false })
+  }
+
+
+  const tooltipStyle = {
+    display: state.hover ? 'block' : 'none',
+    width: "120px",
+    backgroundColor: "black",
+    backgroundColor: "black",
+    color: "#fff",
+    textAlign: "center",
+    borderRadius: "6px",
+    padding: "5px",
+
+    /* Position the tooltip */
+    position: "absolute",
+
+  }
+
+
   return (
     <Root>
       <Wrapper>
@@ -173,13 +204,28 @@ const Header = ({ location, toggleSideBar }) => {
         </LeftSide>
 
         <RightSide>
+
           <Spacing right="md">
-            <Button ghost onClick={() => handleIconClick('MESSAGE')}>
+            <div>
+              <div onMouseOver={handleMouseIn.bind(this)} onMouseOut={handleMouseOut.bind(this)}>
+                <Button ghost onClick={() => navigator.clipboard.writeText(auth.user.MyInvitationCode)}>
+                  <ShareIcon />
+
+                </Button>
+              </div>
+              <div>
+                <div style={tooltipStyle}>Copy InvitationCode</div>
+              </div>
+            </div>
+
+          </Spacing>
+          <Spacing right="md">
+            <Button ghost onClick={() => handleIconClick('MESSAGE')} >
               {auth.user.newConversations.length > 0 && (
                 <MessageCount>{auth.user.newConversations.length}</MessageCount>
               )}
-
               <EnvelopeOpenIcon />
+
             </Button>
           </Spacing>
 

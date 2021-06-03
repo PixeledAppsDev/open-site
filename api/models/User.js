@@ -26,6 +26,18 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+    invitationCode: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      
+    },
+    MyInvitationCode: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      unique: true,
+    },
     passwordResetToken: String,
     passwordResetTokenExpiry: Date,
     password: {

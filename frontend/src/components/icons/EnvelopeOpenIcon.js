@@ -23,3 +23,4 @@ export const EnvelopeOpenIcon = ({ width, color }) => {
     </svg>
   );
 };
+

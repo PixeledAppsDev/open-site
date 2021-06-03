@@ -12,6 +12,8 @@ import { IS_USER_ONLINE } from '../constants/Subscriptions';
 const AUTH_TOKEN_EXPIRY = '1y';
 const RESET_PASSWORD_TOKEN_EXPIRY = 3600000;
 
+
+
 const Query = {
   /**
    * Gets the currently logged in user
@@ -306,6 +308,7 @@ const Mutation = {
       token: generateToken(user, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
   },
+
   /**
    * Signs up user
    *
@@ -313,13 +316,25 @@ const Mutation = {
    * @param {string} email
    * @param {string} username
    * @param {string} password
+   * @param {string} invitationCode
    */
-  signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
+
+  signup: async (root, { input: { fullName, email, username, invitationCode, password } }, { User }) => {
     // Check if user with given email or username already exists
+    let MyInvitationCode
     const user = await User.findOne().or([{ email }, { username }]);
     if (user) {
       const field = user.email === email ? 'email' : 'username';
       throw new Error(`User with given ${field} already exists.`);
+    }
+    
+
+    //Check Valid Invitation Code
+    const inviteCodeCheck = await (User.findOne({ MyInvitationCode: invitationCode }))
+    
+
+    if (!inviteCodeCheck) {
+      throw new Error(`Invalid Invatation Code`);
     }
 
     // Empty field validation
@@ -362,16 +377,34 @@ const Mutation = {
       throw new Error('Password min 6 characters.');
     }
 
+    //generate Random Invitation Code
+    MyInvitationCode = Math.random().toString(36).substr(2, 6)
+
     const newUser = await new User({
       fullName,
       email,
       username,
       password,
+      invitationCode,
+      MyInvitationCode
     }).save();
+
+    //Welcome Email send
+    if (newUser) {
+      const mailOptions = {
+        to: email,
+        subject: 'WelCome',
+        html: `Welcome ${fullName} to My Network`,
+      };
+
+      sendEmail(mailOptions);
+    }
 
     return {
       token: generateToken(newUser, process.env.SECRET, AUTH_TOKEN_EXPIRY),
     };
+
+
   },
   /**
    * Requests reset password
@@ -392,7 +425,7 @@ const Mutation = {
       { _id: user.id },
       { passwordResetToken: token, passwordResetTokenExpiry: tokenExpiry },
       { new: true }
-    );
+    ); n
 
     // Email user reset link
     const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${email}&token=${token}`;
